@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signal Pro v6.2 - Bionic AI</title>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+    <style>
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
+        body { background-color: #0b0b0c; color: #f5f5f7; padding: 20px; display: flex; flex-direction: column; align-items: center; }
+        h1 { font-size: 22px; margin-bottom: 5px; color: #fff; text-align: center; }
+        .subtitle { font-size: 13px; color: #86868b; margin-bottom: 20px; text-align: center; }
+        .card { background: #1c1c1e; border-radius: 16px; padding: 16px; width: 100%; max-width: 400px; margin-bottom: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); border: 1px: rgba(255,255,255,0.1); }
+        .btn { width: 100%; background: #0071e3; color: white; border: none; padding: 12px; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 10px; transition: 0.2s; }
+        .btn:active { background: #0077ed; transform: scale(0.98); }
+        .promo-box { background: #2c2c2e; padding: 10px; border-radius: 8px; text-align: center; font-weight: bold; color: #34c759; margin-top: 10px; }
+        .signal-screen { background: #000; padding: 15px; border-radius: 10px; text-align: font-family: monospace; font-size: 18px; letter-spacing: 3px; margin-top: 10px; border: 1px solid #333; }
+        input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #333; background: #1c1c1e; color: #fff; margin-top: 8px; }
+    </style>
+</head>
+<body>
+
+    <h1> BIONIC AI // SIGNAL PRO v6.2</h1>
+    <div class="subtitle">Neural Interface & O'yin Signallari</div>
+
+    <div class="card">
+        <h3>🎁 Rasmiy Promokodlar</h3>
+        <div class="promo-box">DARKWOLF76</div>
+        <div class="promo-box" style="color: #0a84ff;">BE127</div>
+        <p style="font-size: 12px; color: #86868b; margin-top: 8px;">Linebet'da ro'yxatdan o'tishda foydalaning.</p>
+    </div>
+
+    <div class="card">
+        <h3>🆔 Linebet ID Kiritish</h3>
+        <input type="text" id="linebetId" placeholder="ID raqamingizni kiriting...">
+        <button class="btn" onclick="saveId()">Saqlash</button>
+    </div>
+
+    <div class="card">
+        <h3>🍏 Apple of Fortune</h3>
+        <div class="signal-screen" id="appleSignal">🍎 🍏 🍎 🍎</div>
+        <button class="btn" onclick="getAppleSignal()">Signal Olish</button>
+    </div>
+
+    <div class="card">
+        <h3>💣 Mines Signal</h3>
+        <div class="signal-screen" id="minesSignal" style="font-size: 14px; line-height: 1.6;">
+            ⬜️ ⭐️ ⬜️ ⬜️ ⬜️<br>
+            ⬜️ ⬜️ ⬜️ ⭐️ ⬜️<br>
+            ⭐️ ⬜️ ⬜️ ⬜️ ⬜️
+        </div>
+        <button class="btn" onclick="getMinesSignal()">Signal Olish</button>
+    </div>
+
+    <script>
+        let tg = window.Telegram.WebApp;
+        tg.expand();
+
+        function saveId() {
+            let id = document.getElementById('linebetId').value;
+            if(id) {
+                alert('ID muvaffaqiyatli saqlandi: ' + id);
+            } else {
+                alert('Iltimos ID kiriting!');
+            }
+        }
+
+        function getAppleSignal() {
+            const rows = ["🍎 🍏 🍎 🍎", "🍎 🍎 🍏 🍎", "🍏 🍎 🍎 🍎", "🍎 🍎 🍎 🍏"];
+            let rand = rows[Math.floor(Math.random() * rows.length)];
+            document.getElementById('appleSignal').innerText = rand;
+        }
+
+        function getMinesSignal() {
+            const boards = [
+                "⬜️ ⭐️ ⬜️ ⬜️ ⬜️<br>⬜️ ⬜️ ⬜️ ⭐️ ⬜️<br>⭐️ ⬜️ ⬜️ ⬜️ ⬜️",
+                "⭐️ ⬜️ ⬜️ ⬜️ ⬜️<br>⬜️ ⬜️ ⭐️ ⬜️ ⬜️<br>⬜️ ⬜️ ⬜️ ⬜️ ⭐️",
+                "⬜️ ⬜️ ⭐️ ⬜️ ⬜️<br>⭐️ ⬜️ ⬜️ ⬜️ ⬜️<br>⬜️ ⬜️ ⬜️ ⭐️ ⬜️"
+            ];
+            let randBoard = boards[Math.floor(Math.random() * boards.length)];
+            document.getElementById('minesSignal').innerHTML = randBoard;
+        }
+    </script>
+</body>
+</html>
