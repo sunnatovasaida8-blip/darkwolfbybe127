@@ -3,91 +3,253 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Signal Pro v6.2 - Bionic AI</title>
+    <title>DARKWOLF76 - Game Analysis</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
-        body { background-color: #000000; color: #f5f5f7; padding: 16px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
-        .container { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 14px; padding-bottom: 30px; }
-        .header { text-align: center; margin-top: 10px; margin-bottom: 5px; }
-        h1 { font-size: 20px; font-weight: 700; color: #ffffff; letter-spacing: -0.5px; }
-        .subtitle { font-size: 13px; color: #86868b; margin-top: 4px; }
-        .card { background: #1c1c1e; border-radius: 18px; padding: 18px; box-shadow: 0 8px 30px rgba(0,0,0,0.6); border: 0.5px solid rgba(255,255,255,0.1); }
-        .card h3 { font-size: 15px; font-weight: 600; color: #f5f5f7; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
-        .btn { width: 100%; background: #0071e3; color: white; border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 12px; transition: transform 0.1s ease, background 0.2s; text-align: center; text-decoration: none; display: block; }
-        .btn:active { background: #0077ed; transform: scale(0.97); }
-        .btn-secondary { background: #2c2c2e; color: #0a84ff; border: 0.5px solid rgba(255,255,255,0.1); }
-        .promo-box { background: #2c2c2e; padding: 12px; border-radius: 10px; text-align: center; font-weight: 700; font-size: 16px; color: #34c759; margin-top: 8px; letter-spacing: 1px; border: 0.5px solid rgba(255,255,255,0.05); }
-        .promo-box.blue { color: #0a84ff; }
-        .signal-screen { background: #0b0b0c; padding: 16px; border-radius: 12px; text-align: center; font-size: 22px; letter-spacing: 6px; margin-top: 10px; border: 0.5px solid rgba(255,255,255,0.08); display: none; }
-        .signal-screen.active { display: block; }
-        input { width: 100%; padding: 14px; border-radius: 12px; border: 0.5px solid #3a3a3c; background: #2c2c2e; color: #fff; font-size: 15px; outline: none; margin-top: 4px; transition: border-color 0.2s; }
-        input:focus { border-color: #0071e3; }
-        .hint { font-size: 12px; color: #86868b; margin-top: 8px; line-height: 1.4; }
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
-        .menu-btn { background: #2c2c2e; border: 0.5px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 12px; color: #fff; font-weight: 600; text-align: center; cursor: pointer; font-size: 14px; }
-        .menu-btn.active { background: #0071e3; border-color: transparent; }
-        .section { display: none; }
-        .section.active { display: block; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #030712; color: #ffffff; min-height: 100vh; display: flex; flex-direction: column; align-items: center; padding: 12px; }
+        
+        /* Top Navigation Bar */
+        .top-bar { width: 100%; max-width: 420px; display: flex; justify-content: space-between; align-items: center; padding: 8px 4px; margin-bottom: 15px; }
+        .icon-btn { width: 42px; height: 42px; background: #0b62f6; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 0 12px rgba(11, 98, 246, 0.4); border: none; color: #fff; font-size: 20px; }
+        .status-badge { background: #b91c1c; color: #fff; font-size: 10px; font-weight: 700; padding: 4px 10px; border-radius: 20px; text-transform: uppercase; border: 1px solid #ef4444; }
+        .lang-badge { background: #111827; border: 1px solid #1f2937; padding: 4px 10px; border-radius: 20px; font-size: 12px; display: flex; align-items: center; gap: 5px; }
+
+        /* Main Container Card */
+        .main-card { background: linear-gradient(180deg, #0d1527 0%, #070c18 100%); border: 1px solid #1e293b; border-radius: 24px; width: 100%; max-width: 420px; padding: 20px 16px; box-shadow: 0 20px 40px rgba(0,0,0,0.8); position: relative; }
+        
+        .header-title { display: flex; justify-content: center; align-items: center; gap: 8px; font-size: 24px; font-weight: 900; color: #38bdf8; letter-spacing: 1px; text-align: center; margin-bottom: 16px; text-shadow: 0 0 10px rgba(56, 189, 248, 0.3); }
+        .bell-icon { font-size: 18px; cursor: pointer; position: absolute; left: 24px; top: 22px; color: #fff; }
+        .dot-red { width: 7px; height: 7px; background: #ef4444; border-radius: 50%; position: absolute; top: -1px; right: -1px; }
+
+        /* Game Cards Grid */
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
+        .game-card { background: #0f172a; border-radius: 16px; overflow: hidden; border: 1px solid #1e293b; cursor: pointer; transition: transform 0.15s; }
+        .game-card:active { transform: scale(0.96); }
+        .game-img { width: 100%; height: 95px; object-fit: cover; display: block; }
+        .game-title { background: #ffffff; color: #0f172a; font-weight: 800; font-size: 14px; padding: 10px; text-align: left; }
+
+        /* Footer Status */
+        .footer-tools { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 10px; }
+        .plane-btn { background: #1e1b4b; border: 1px solid #3730a3; width: 100px; height: 42px; border-radius: 14px; display: flex; justify-content: center; align-items: center; cursor: pointer; color: #f43f5e; font-size: 20px; }
+        .android-btn { background: #0f172a; border: 1px solid #1e293b; width: 48px; height: 42px; border-radius: 14px; display: flex; justify-content: center; align-items: center; color: #22c55e; font-size: 18px; }
+        .online-status { background: #052e16; border: 1px solid #15803d; padding: 6px 12px; border-radius: 14px; display: flex; align-items: center; gap: 8px; font-size: 11px; color: #4ade80; flex-grow: 1; justify-content: center; }
+        .green-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 8px #22c55e; }
+
+        /* Common UI Screens (Apple, Thimbles, etc.) */
+        .screen { display: none; flex-direction: column; align-items: center; width: 100%; }
+        .screen.active { display: flex; }
+        .screen-top { width: 100%; display: flex; justify-content: space-between; margin-bottom: 20px; }
+        .btn-nav { background: #38bdf8; color: #000; font-weight: 700; padding: 10px 22px; border-radius: 14px; border: none; cursor: pointer; font-size: 14px; box-shadow: 0 0 12px rgba(56, 189, 248, 0.4); }
+        .screen-title { font-size: 22px; font-weight: 900; margin-bottom: 10px; color: #fff; letter-spacing: 1px; }
+        .big-number { font-size: 80px; font-weight: 900; color: #fff; line-height: 1; margin-bottom: 25px; text-shadow: 0 0 20px rgba(255,255,255,0.3); }
+        .item-row { display: flex; gap: 8px; margin-bottom: 25px; }
+        .scan-desc { font-size: 15px; font-weight: 700; color: #ffffff; text-align: center; margin-bottom: 6px; }
+        .scan-sub { font-size: 12px; color: #94a3b8; margin-bottom: 30px; }
+        .btn-scan { width: 100%; background: linear-gradient(90deg, #38bdf8 0%, #3b82f6 100%); color: #fff; font-size: 16px; font-weight: 800; padding: 16px; border-radius: 16px; border: none; cursor: pointer; box-shadow: 0 4px 20px rgba(59, 130, 246, 0.5); letter-spacing: 1px; }
+
+        /* Aviator Screen */
+        .aviator-box { background: #1e1b4b; border: 1px solid #4338ca; border-radius: 20px; width: 100%; padding: 30px 20px; text-align: center; margin-bottom: 15px; position: relative; }
+        .aviator-coeff { font-size: 42px; font-weight: 900; color: #fff; margin: 10px 0; }
+        .history-row { display: flex; gap: 6px; justify-content: center; margin-top: 15px; }
+        .history-item { background: #0f172a; border: 1px solid #1e293b; border-radius: 8px; padding: 6px 10px; font-size: 11px; text-align: center; }
+        .history-item span { display: block; color: #64748b; font-size: 9px; }
+
+        /* Modals */
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0, 0, 0, 0.85); display: none; justify-content: center; align-items: center; z-index: 100; backdrop-filter: blur(4px); }
+        .modal-overlay.active { display: flex; }
+        .modal-card { background: #0b1329; border: 1px solid #1e293b; border-radius: 24px; width: 90%; max-width: 360px; padding: 24px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.9); }
+        .modal-title { font-size: 18px; font-weight: 800; color: #fff; margin-bottom: 12px; }
+        .modal-text { font-size: 13px; color: #cbd5e1; line-height: 1.5; margin-bottom: 20px; text-align: left; }
+        .modal-input { width: 100%; padding: 14px; background: #070d1e; border: 1px solid #1e293b; border-radius: 12px; color: #fff; font-size: 14px; outline: none; margin-bottom: 16px; text-align: center; }
+        .modal-btns { display: flex; gap: 10px; }
+        .m-btn { flex: 1; padding: 12px; border-radius: 12px; border: none; font-weight: 700; font-size: 14px; cursor: pointer; }
+        .m-btn-cancel { background: #1e293b; color: #fff; }
+        .m-btn-save { background: #38bdf8; color: #000; }
     </style>
 </head>
 <body>
 
-    <div class="container">
-        <div class="header">
-            <h1>BIONIC AI // SIGNAL PRO v6.2</h1>
-            <div class="subtitle">Neural Interface & O'yin Signallari</div>
-        </div>
+    <!-- Top Navigation -->
+    <div class="top-bar">
+        <button class="icon-btn" onclick="openModal('idModal')">⚙️</button>
+        <div class="status-badge">Offline</div>
+        <div class="lang-badge">🌐 <span>UZ</span></div>
+        <button class="icon-btn" onclick="window.open('https://t.me/MUZZCOLD', '_blank')">✈️</button>
+    </div>
 
-        <!-- Kanallar tugmalari -->
-        <div class="card">
-            <h3>📢 Rasmiy Kanallar</h3>
-            <a href="https://t.me/MUZZCOLD" target="_blank" class="btn btn-secondary">Telegram 1 (MUZZCOLD)</a>
-            <a href="https://t.me/LINEBET_STAFKALARR" target="_blank" class="btn btn-secondary" style="margin-top: 8px;">Telegram 2 (LINEBET)</a>
-        </div>
+    <!-- Main Container -->
+    <div class="main-card">
+        
+        <!-- Dashboard Screen -->
+        <div class="screen active" id="secDash">
+            <div style="position: relative; width: 100%;">
+                <div class="bell-icon" onclick="openModal('newsModal')">🔔<div class="dot-red"></div></div>
+                <div class="header-title">DARKWOLF76</div>
+            </div>
 
-        <!-- Asosiy Menyu (O'yin tanlash) -->
-        <div class="card">
-            <h3>🎛 Asosiy Menyu</h3>
-            <div class="menu-grid">
-                <div class="menu-btn active" id="btnApple" onclick="switchGame('apple')">🍏 Apple</div>
-                <div class="menu-btn" id="btnMines" onclick="switchGame('mines')">💣 Mines</div>
-                <div class="menu-btn" id="btnPromo" onclick="switchGame('promo')">🎁 Promokod</div>
-                <div class="menu-btn" id="btnId" onclick="switchGame('id')">🆔 Linebet ID</div>
+            <div class="grid">
+                <div class="game-card" onclick="showScreen('secApple')">
+                    <img class="game-img" src="https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=300&q=80" alt="Apple">
+                    <div class="game-title">Apple</div>
+                </div>
+                <div class="game-card" onclick="showScreen('secThimbles')">
+                    <img class="game-img" src="https://images.unsplash.com/photo-1511193311914-0346f16efe90?w=300&q=80" alt="Thimbles">
+                    <div class="game-title">Thimbles</div>
+                </div>
+                <div class="game-card" onclick="showScreen('secKamikaze')">
+                    <img class="game-img" src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=300&q=80" alt="Kamikaze">
+                    <div class="game-title">Kamikaze</div>
+                </div>
+                <div class="game-card" onclick="showScreen('secSwamp')">
+                    <img class="game-img" src="https://images.unsplash.com/photo-1550747528-cdb45925b3f7?w=300&q=80" alt="Swamp Land">
+                    <div class="game-title">Swamp Land</div>
+                </div>
+            </div>
+
+            <div class="footer-tools">
+                <div class="plane-btn" onclick="showScreen('secAviator')">✈️</div>
+                <div class="android-btn">🤖</div>
+                <div class="online-status">
+                    <div class="green-dot"></div>
+                    <div>Taxminiy faollik <b>~201 faol</b></div>
+                </div>
             </div>
         </div>
 
-        <!-- Apple of Fortune bo'limi -->
-        <div class="card section active" id="secApple">
-            <h3>🍏 Apple of Fortune Signali</h3>
-            <div class="signal-screen active" id="appleSignal">🍎 🍏 🍎 🍎</div>
-            <button class="btn" onclick="getAppleSignal()">Signal Olish</button>
-        </div>
-
-        <!-- Mines bo'limi -->
-        <div class="card section" id="secMines">
-            <h3>💣 Mines Signali</h3>
-            <div class="signal-screen active" id="minesSignal" style="font-size: 16px; line-height: 1.8; letter-spacing: 8px; text-align: center;">
-                ⬜️ ⭐️ ⬜️ ⬜️ ⬜️<br>
-                ⬜️ ⬜️ ⬜️ ⭐️ ⬜️<br>
-                ⭐️ ⬜️ ⬜️ ⬜️ ⬜️
+        <!-- Apple Screen -->
+        <div class="screen" id="secApple">
+            <div class="screen-top">
+                <button class="btn-nav" onclick="showScreen('secDash')">Orqaga</button>
+                <button class="btn-nav" onclick="scanApple()">Restart</button>
             </div>
-            <button class="btn" onclick="getMinesSignal()">Signal Olish</button>
+            <div class="screen-title">APPLE</div>
+            <div class="big-number" id="numApple">0</div>
+            <div class="item-row" id="rowApple">
+                <span style="font-size:32px">🍎</span><span style="font-size:32px">🍎</span><span style="font-size:32px">🍎</span><span style="font-size:32px">🍎</span><span style="font-size:32px">🍎</span>
+            </div>
+            <div class="scan-desc">Natijani olish uchun SCAN ni bosing</div>
+            <div class="scan-sub">1 dan 5 gacha</div>
+            <button class="btn-scan" onclick="scanApple()">SCAN</button>
         </div>
 
-        <!-- Promokodlar bo'limi -->
-        <div class="card section" id="secPromo">
-            <h3>🎁 Rasmiy Promokodlar</h3>
-            <div class="promo-box">DARKWOLF76</div>
-            <div class="promo-box blue">BE127</div>
-            <div class="hint">Linebet'da ro'yxatdan o'tishda ushbu promokodlardan foydalaning va yuqori bonuslarga ega bo'ling.</div>
+        <!-- Thimbles Screen -->
+        <div class="screen" id="secThimbles">
+            <div class="screen-top">
+                <button class="btn-nav" onclick="showScreen('secDash')">Orqaga</button>
+                <button class="btn-nav" onclick="scanThimbles()">Restart</button>
+            </div>
+            <div class="screen-title" style="color: #38bdf8;">Thimbles</div>
+            <div class="item-row" style="margin-top: 40px; margin-bottom: 50px; gap: 20px;">
+                <div style="background:#f97316; width:60px; height:60px; border-radius:14px; display:flex; justify-content:center; align-items:center; font-weight:900; font-size:20px; color:#fff;" id="thimb1">1</div>
+                <div style="background:#f97316; width:60px; height:60px; border-radius:14px; display:flex; justify-content:center; align-items:center; font-weight:900; font-size:20px; color:#fff;" id="thimb2">2</div>
+                <div style="background:#f97316; width:60px; height:60px; border-radius:14px; display:flex; justify-content:center; align-items:center; font-weight:900; font-size:20px; color:#fff;" id="thimb3">3</div>
+            </div>
+            <div class="scan-desc">Natijani olish uchun SCAN ni bosing</div>
+            <div class="scan-sub">1 dan 3 gacha</div>
+            <button class="btn-scan" onclick="scanThimbles()">SCAN</button>
         </div>
 
-        <!-- Linebet ID bo'limi -->
-        <div class="card section" id="secId">
-            <h3>🆔 Linebet ID Kiritish</h3>
-            <input type="text" id="linebetId" placeholder="ID raqamingizni kiriting...">
-            <button class="btn" onclick="saveId()">Saqlash</button>
+        <!-- Kamikaze Screen -->
+        <div class="screen" id="secKamikaze">
+            <div class="screen-top">
+                <button class="btn-nav" onclick="showScreen('secDash')">Orqaga</button>
+                <button class="btn-nav" onclick="scanKamikaze()">Restart</button>
+            </div>
+            <div class="screen-title" style="color: #ef4444;">KAMIKAZE</div>
+            <div class="big-number" id="numKami">0</div>
+            <div class="item-row" style="gap:10px; margin-bottom:30px;">
+                <div style="background:#0284c7; width:45px; height:45px; border-radius:10px; display:flex; justify-content:center; align-items:center; font-weight:800;" id="k1">1</div>
+                <div style="background:#0284c7; width:45px; height:45px; border-radius:10px; display:flex; justify-content:center; align-items:center; font-weight:800;" id="k2">2</div>
+                <div style="background:#0284c7; width:45px; height:45px; border-radius:10px; display:flex; justify-content:center; align-items:center; font-weight:800;" id="k3">3</div>
+                <div style="background:#0284c7; width:45px; height:45px; border-radius:10px; display:flex; justify-content:center; align-items:center; font-weight:800;" id="k4">4</div>
+                <div style="background:#0284c7; width:45px; height:45px; border-radius:10px; display:flex; justify-content:center; align-items:center; font-weight:800;" id="k5">5</div>
+            </div>
+            <div class="scan-desc">Natijani olish uchun SCAN ni bosing</div>
+            <div class="scan-sub">1 dan 5 gacha</div>
+            <button class="btn-scan" onclick="scanKamikaze()">SCAN</button>
+        </div>
+
+        <!-- Swamp Land Screen -->
+        <div class="screen" id="secSwamp">
+            <div class="screen-top">
+                <button class="btn-nav" onclick="showScreen('secDash')">Orqaga</button>
+                <button class="btn-nav" onclick="scanSwamp()">Restart</button>
+            </div>
+            <div class="screen-title">SWAMP LAND</div>
+            <div class="big-number" id="numSwamp">0</div>
+            <div class="item-row">
+                <span style="font-size:32px">🍃</span><span style="font-size:32px">🍃</span><span style="font-size:32px">🍃</span><span style="font-size:32px">🍃</span><span style="font-size:32px">🍃</span>
+            </div>
+            <div class="scan-desc">Natijani olish uchun SCAN ni bosing</div>
+            <div class="scan-sub">1 dan 5 gacha</div>
+            <button class="btn-scan" onclick="scanSwamp()">SCAN</button>
+        </div>
+
+        <!-- Aviator Screen -->
+        <div class="screen" id="secAviator">
+            <div class="screen-top">
+                <button class="btn-nav" onclick="showScreen('secDash')">Orqaga</button>
+                <button class="btn-nav" onclick="scanAviator()">Yangilash</button>
+            </div>
+            <div class="screen-title" style="color: #f43f5e;">Aviator</div>
+            <div style="font-size: 11px; color: #94a3b8; margin-bottom: 10px;">TAHLILIY SIGNAL</div>
+
+            <div class="aviator-box">
+                <div class="aviator-coeff" id="avCoeff">2.17x</div>
+                <div style="font-size: 13px; color: #cbd5e1;" id="avTime">Soat 23:18 da 2.17x koeffitsientda oling</div>
+            </div>
+
+            <div style="font-size: 11px; color: #64748b; text-align: center; margin-bottom: 8px;">OXIRGI 5 SIGNAL</div>
+            <div class="history-row">
+                <div class="history-item">1.83x<span>23:15</span></div>
+                <div class="history-item">1.53x<span>23:12</span></div>
+                <div class="history-item">2.19x<span>23:09</span></div>
+                <div class="history-item">1.89x<span>23:06</span></div>
+                <div class="history-item">1.55x<span>23:03</span></div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Modals -->
+    <!-- Settings ID Modal -->
+    <div class="modal-overlay" id="idModal">
+        <div class="modal-card">
+            <div class="modal-title">Linebet ID yozing</div>
+            <input type="text" class="modal-input" id="lineIdInput" placeholder="Linebet ID yozing">
+            <div class="modal-btns">
+                <button class="m-btn m-btn-cancel" onclick="closeModal('idModal')">Yopish</button>
+                <button class="m-btn m-btn-save" onclick="saveId()">Saqlash</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- News Modal -->
+    <div class="modal-overlay" id="newsModal">
+        <div class="modal-card">
+            <div style="font-size: 40px; margin-bottom: 10px;">📨</div>
+            <div class="modal-title">Yangiliklar</div>
+            <div class="modal-text" style="text-align: center;">
+                DARKWOLF76 ishlayshi uchun Linebet hisobingizda 60000 so'mdan kam bo'lmasin!
+                <br><br>
+                <small style="color: #64748b;">13/09/2026, 13:53:11</small>
+            </div>
+            <button class="m-btn m-btn-save" style="width: 100%;" onclick="closeModal('newsModal')">Yopish</button>
+        </div>
+    </div>
+
+    <!-- Terms Modal -->
+    <div class="modal-overlay" id="termsModal">
+        <div class="modal-card">
+            <div class="modal-title">🛡 DARKWOLF76 — foydalanish shartlari</div>
+            <div class="modal-text">
+                • Ro'yxatdan o'tishda promokod: <b>DARKWOLF76</b><br>
+                • Minimal depozit: 5$ (~60 000 so'm)<br>
+                • Linebet ID'ni ⚙️ Settings orqali kiriting.<br>
+                • ID muvaffaqiyatli tekshirilgandan keyin tizim Online holatiga o'tadi.
+            </div>
+            <button class="m-btn m-btn-save" style="width: 100%;" onclick="closeModal('termsModal')">Tushundim</button>
         </div>
     </div>
 
@@ -95,46 +257,72 @@
         let tg = window.Telegram.WebApp;
         tg.expand();
 
-        function switchGame(game) {
-            // Hamma menyu tugmalari va bo'limlarni o'chirish
-            document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
-            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+        // Show Terms on First Load
+        window.onload = function() {
+            openModal('termsModal');
+        };
 
-            // Tanlanganni yoqish
-            if(game === 'apple') {
-                document.getElementById('btnApple').classList.add('active');
-                document.getElementById('secApple').classList.add('active');
-            } else if(game === 'mines') {
-                document.getElementById('btnMines').classList.add('active');
-                document.getElementById('secMines').classList.add('active');
-            } else if(game === 'promo') {
-                document.getElementById('btnPromo').classList.add('active');
-                document.getElementById('secPromo').classList.add('active');
-            } else if(game === 'id') {
-                document.getElementById('btnId').classList.add('active');
-                document.getElementById('secId').classList.add('active');
-            }
+        function showScreen(id) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+
+        function openModal(id) {
+            document.getElementById(id).classList.add('active');
+        }
+
+        function closeModal(id) {
+            document.getElementById(id).classList.remove('active');
         }
 
         function saveId() {
-            let id = document.getElementById('linebetId').value;
+            let id = document.getElementById('lineIdInput').value;
             if(id) {
-                alert('ID muvaffaqiyatli saqlandi: ' + id);
+                alert('Linebet ID muvaffaqiyatli saqlandi: ' + id);
+                closeModal('idModal');
             } else {
                 alert('Iltimos ID kiriting!');
             }
         }
 
-        function getAppleSignal() {
-            const rows = ["🍎 🍏 🍎 🍎", "🍎 🍎 🍏 🍎", "🍏 🍎 🍎 🍎", "🍎 🍎 🍎 🍏"];
-            let rand = rows[Math.floor(Math.random() * rows.length)];
-            document.getElementById('appleSignal').innerText = rand;
+        function scanApple() {
+            document.getElementById('numApple').innerText = Math.floor(Math.random() * 5) + 1;
         }
 
-        function getMinesSignal() {
-            const boards = [
-                "⬜️ ⭐️ ⬜️ ⬜️ ⬜️<br>⬜️ ⬜️ ⬜️ ⭐️ ⬜️<br>⭐️ ⬜️ ⬜️ ⬜️ ⬜️",
-                "⭐️ ⬜️ ⬜️ ⬜️ ⬜️<br>⬜️ ⬜️ ⭐️ ⬜️ ⬜️<br>⬜️ ⬜️ ⬜️ ⬜️ ⭐️",
-                "⬜️ ⬜️ ⭐️ ⬜️ ⬜️<br>⭐️ ⬜️ ⬜️ ⬜️ ⬜️<br>⬜️ ⬜️ ⬜️ ⭐️ ⬜️"
-            ];
-            let randBoard = boards[Math.floor(Math.random() * boards.length
+        function scanThimbles() {
+            let res = Math.floor(Math.random() * 3) + 1;
+            [1,2,3].forEach(i => {
+                let el = document.getElementById('thimb' + i);
+                if(i === res) {
+                    el.style.background = "#22c55e";
+                } else {
+                    el.style.background = "#f97316";
+                }
+            });
+        }
+
+        function scanKamikaze() {
+            document.getElementById('numKami').innerText = Math.floor(Math.random() * 5) + 1;
+            let chosen = Math.floor(Math.random() * 5) + 1;
+            [1,2,3,4,5].forEach(i => {
+                let el = document.getElementById('k' + i);
+                if(i === chosen) {
+                    el.style.background = "#22c55e";
+                } else {
+                    el.style.background = "#0284c7";
+                }
+            });
+        }
+
+        function scanSwamp() {
+            document.getElementById('numSwamp').innerText = Math.floor(Math.random() * 5) + 1;
+        }
+
+        function scanAviator() {
+            let val = (Math.random() * (3.5 - 1.2) + 1.2).toFixed(2);
+            document.getElementById('avCoeff').innerText = val + 'x';
+            document.getElementById('avTime').innerText = 'Soat 23:18 da ' + val + 'x koeffitsientda oling';
+        }
+    </script>
+</body>
+</html>
