@@ -13,10 +13,7 @@
         .top-bar { width: 100%; max-width: 420px; display: flex; justify-content: space-between; align-items: center; padding: 8px 4px; margin-bottom: 15px; }
         .icon-btn { width: 42px; height: 42px; background: #0b62f6; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 0 12px rgba(11, 98, 246, 0.4); border: none; color: #fff; font-size: 20px; }
         
-        /* Status Badge - Default Online or Offline */
         .status-badge { background: #15803d; color: #fff; font-size: 11px; font-weight: 800; padding: 6px 16px; border-radius: 20px; text-transform: uppercase; border: 1px solid #22c55e; letter-spacing: 1px; box-shadow: 0 0 10px rgba(34, 197, 94, 0.4); }
-        .status-badge.offline { background: #b91c1c; border-color: #ef4444; box-shadow: 0 0 10px rgba(239, 68, 68, 0.4); }
-
         .lang-badge { background: #111827; border: 1px solid #1f2937; padding: 6px 12px; border-radius: 20px; font-size: 12px; display: flex; align-items: center; gap: 5px; }
 
         /* Main Container Card */
@@ -28,10 +25,10 @@
 
         /* Game Cards Grid */
         .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px; }
-        .game-card { background: #ffffff; border-radius: 16px; overflow: hidden; border: 1px solid #1e293b; cursor: pointer; transition: transform 0.15s; }
+        .game-card { background: #0b1329; border-radius: 16px; overflow: hidden; border: 1px solid #1e293b; cursor: pointer; transition: transform 0.15s; }
         .game-card:active { transform: scale(0.96); }
         .game-img { width: 100%; height: 95px; object-fit: cover; display: block; }
-        .game-title { color: #0f172a; font-weight: 800; font-size: 14px; padding: 10px; text-align: left; background: #ffffff; }
+        .game-title { color: #ffffff; font-weight: 800; font-size: 14px; padding: 10px; text-align: left; background: #ffffff; color: #0f172a; }
 
         /* Footer Status */
         .footer-tools { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-top: 10px; }
@@ -94,19 +91,19 @@
 
             <div class="grid">
                 <div class="game-card" onclick="showScreen('secApple')">
-                    <img class="game-img" src="https://images.unsplash.com/photo-1560806887-1e4cd0b6cbd6?w=300&q=80" alt="Apple">
+                    <img class="game-img" src="https://images.unsplash.com/photo-1568702846914-96b305d2aaeb?w=300&q=80" alt="Apple">
                     <div class="game-title">Apple</div>
                 </div>
                 <div class="game-card" onclick="showScreen('secThimbles')">
-                    <img class="game-img" src="https://images.unsplash.com/photo-1511193311914-0346f16efe90?w=300&q=80" alt="Thimbles">
+                    <img class="game-img" src="https://images.unsplash.com/photo-1518609878373-06d740f60d8b?w=300&q=80" alt="Thimbles">
                     <div class="game-title">Thimbles</div>
                 </div>
                 <div class="game-card" onclick="showScreen('secKamikaze')">
-                    <img class="game-img" src="https://images.unsplash.com/photo-1508614589041-895b88991e3e?w=300&q=80" alt="Kamikaze">
+                    <img class="game-img" src="https://images.unsplash.com/photo-1519074069444-1ba4ea16d66c?w=300&q=80" alt="Kamikaze">
                     <div class="game-title">Kamikaze</div>
                 </div>
                 <div class="game-card" onclick="showScreen('secSwamp')">
-                    <img class="game-img" src="https://images.unsplash.com/photo-1550747528-cdb45925b3f7?w=300&q=80" alt="Swamp Land">
+                    <img class="game-img" src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?w=300&q=80" alt="Swamp Land">
                     <div class="game-title">Swamp Land</div>
                 </div>
             </div>
@@ -285,7 +282,6 @@
                 closeModal('idModal');
                 let badge = document.getElementById('statusBadge');
                 badge.innerText = "ONLINE";
-                badge.classList.remove('offline');
             } else {
                 alert('Iltimos ID kiriting!');
             }
