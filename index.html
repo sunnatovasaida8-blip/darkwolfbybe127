@@ -2,59 +2,119 @@
 <html lang="uz">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Signal Pro v6.2 - Bionic AI</title>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; }
-        body { background-color: #0b0b0c; color: #f5f5f7; padding: 20px; display: flex; flex-direction: column; align-items: center; }
-        h1 { font-size: 22px; margin-bottom: 5px; color: #fff; text-align: center; }
-        .subtitle { font-size: 13px; color: #86868b; margin-bottom: 20px; text-align: center; }
-        .card { background: #1c1c1e; border-radius: 16px; padding: 16px; width: 100%; max-width: 400px; margin-bottom: 15px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); border: 1px: rgba(255,255,255,0.1); }
-        .btn { width: 100%; background: #0071e3; color: white; border: none; padding: 12px; border-radius: 12px; font-size: 16px; font-weight: 600; cursor: pointer; margin-top: 10px; transition: 0.2s; }
-        .btn:active { background: #0077ed; transform: scale(0.98); }
-        .promo-box { background: #2c2c2e; padding: 10px; border-radius: 8px; text-align: center; font-weight: bold; color: #34c759; margin-top: 10px; }
-        .signal-screen { background: #000; padding: 15px; border-radius: 10px; text-align: font-family: monospace; font-size: 18px; letter-spacing: 3px; margin-top: 10px; border: 1px solid #333; }
-        input { width: 100%; padding: 12px; border-radius: 10px; border: 1px solid #333; background: #1c1c1e; color: #fff; margin-top: 8px; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', Roboto, sans-serif; -webkit-tap-highlight-color: transparent; }
+        body { background-color: #000000; color: #f5f5f7; padding: 16px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; }
+        .container { width: 100%; max-width: 400px; display: flex; flex-direction: column; gap: 14px; padding-bottom: 30px; }
+        .header { text-align: center; margin-top: 10px; margin-bottom: 5px; }
+        h1 { font-size: 20px; font-weight: 700; color: #ffffff; letter-spacing: -0.5px; }
+        .subtitle { font-size: 13px; color: #86868b; margin-top: 4px; }
+        .card { background: #1c1c1e; border-radius: 18px; padding: 18px; box-shadow: 0 8px 30px rgba(0,0,0,0.6); border: 0.5px solid rgba(255,255,255,0.1); }
+        .card h3 { font-size: 15px; font-weight: 600; color: #f5f5f7; margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
+        .btn { width: 100%; background: #0071e3; color: white; border: none; padding: 14px; border-radius: 12px; font-size: 15px; font-weight: 600; cursor: pointer; margin-top: 12px; transition: transform 0.1s ease, background 0.2s; text-align: center; text-decoration: none; display: block; }
+        .btn:active { background: #0077ed; transform: scale(0.97); }
+        .btn-secondary { background: #2c2c2e; color: #0a84ff; border: 0.5px solid rgba(255,255,255,0.1); }
+        .promo-box { background: #2c2c2e; padding: 12px; border-radius: 10px; text-align: center; font-weight: 700; font-size: 16px; color: #34c759; margin-top: 8px; letter-spacing: 1px; border: 0.5px solid rgba(255,255,255,0.05); }
+        .promo-box.blue { color: #0a84ff; }
+        .signal-screen { background: #0b0b0c; padding: 16px; border-radius: 12px; text-align: center; font-size: 22px; letter-spacing: 6px; margin-top: 10px; border: 0.5px solid rgba(255,255,255,0.08); display: none; }
+        .signal-screen.active { display: block; }
+        input { width: 100%; padding: 14px; border-radius: 12px; border: 0.5px solid #3a3a3c; background: #2c2c2e; color: #fff; font-size: 15px; outline: none; margin-top: 4px; transition: border-color 0.2s; }
+        input:focus { border-color: #0071e3; }
+        .hint { font-size: 12px; color: #86868b; margin-top: 8px; line-height: 1.4; }
+        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-top: 10px; }
+        .menu-btn { background: #2c2c2e; border: 0.5px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 12px; color: #fff; font-weight: 600; text-align: center; cursor: pointer; font-size: 14px; }
+        .menu-btn.active { background: #0071e3; border-color: transparent; }
+        .section { display: none; }
+        .section.active { display: block; }
     </style>
 </head>
 <body>
 
-    <h1> BIONIC AI // SIGNAL PRO v6.2</h1>
-    <div class="subtitle">Neural Interface & O'yin Signallari</div>
-
-    <div class="card">
-        <h3>🎁 Rasmiy Promokodlar</h3>
-        <div class="promo-box">DARKWOLF76</div>
-        <div class="promo-box" style="color: #0a84ff;">BE127</div>
-        <p style="font-size: 12px; color: #86868b; margin-top: 8px;">Linebet'da ro'yxatdan o'tishda foydalaning.</p>
-    </div>
-
-    <div class="card">
-        <h3>🆔 Linebet ID Kiritish</h3>
-        <input type="text" id="linebetId" placeholder="ID raqamingizni kiriting...">
-        <button class="btn" onclick="saveId()">Saqlash</button>
-    </div>
-
-    <div class="card">
-        <h3>🍏 Apple of Fortune</h3>
-        <div class="signal-screen" id="appleSignal">🍎 🍏 🍎 🍎</div>
-        <button class="btn" onclick="getAppleSignal()">Signal Olish</button>
-    </div>
-
-    <div class="card">
-        <h3>💣 Mines Signal</h3>
-        <div class="signal-screen" id="minesSignal" style="font-size: 14px; line-height: 1.6;">
-            ⬜️ ⭐️ ⬜️ ⬜️ ⬜️<br>
-            ⬜️ ⬜️ ⬜️ ⭐️ ⬜️<br>
-            ⭐️ ⬜️ ⬜️ ⬜️ ⬜️
+    <div class="container">
+        <div class="header">
+            <h1>BIONIC AI // SIGNAL PRO v6.2</h1>
+            <div class="subtitle">Neural Interface & O'yin Signallari</div>
         </div>
-        <button class="btn" onclick="getMinesSignal()">Signal Olish</button>
+
+        <!-- Kanallar tugmalari -->
+        <div class="card">
+            <h3>📢 Rasmiy Kanallar</h3>
+            <a href="https://t.me/MUZZCOLD" target="_blank" class="btn btn-secondary">Telegram 1 (MUZZCOLD)</a>
+            <a href="https://t.me/LINEBET_STAFKALARR" target="_blank" class="btn btn-secondary" style="margin-top: 8px;">Telegram 2 (LINEBET)</a>
+        </div>
+
+        <!-- Asosiy Menyu (O'yin tanlash) -->
+        <div class="card">
+            <h3>🎛 Asosiy Menyu</h3>
+            <div class="menu-grid">
+                <div class="menu-btn active" id="btnApple" onclick="switchGame('apple')">🍏 Apple</div>
+                <div class="menu-btn" id="btnMines" onclick="switchGame('mines')">💣 Mines</div>
+                <div class="menu-btn" id="btnPromo" onclick="switchGame('promo')">🎁 Promokod</div>
+                <div class="menu-btn" id="btnId" onclick="switchGame('id')">🆔 Linebet ID</div>
+            </div>
+        </div>
+
+        <!-- Apple of Fortune bo'limi -->
+        <div class="card section active" id="secApple">
+            <h3>🍏 Apple of Fortune Signali</h3>
+            <div class="signal-screen active" id="appleSignal">🍎 🍏 🍎 🍎</div>
+            <button class="btn" onclick="getAppleSignal()">Signal Olish</button>
+        </div>
+
+        <!-- Mines bo'limi -->
+        <div class="card section" id="secMines">
+            <h3>💣 Mines Signali</h3>
+            <div class="signal-screen active" id="minesSignal" style="font-size: 16px; line-height: 1.8; letter-spacing: 8px; text-align: center;">
+                ⬜️ ⭐️ ⬜️ ⬜️ ⬜️<br>
+                ⬜️ ⬜️ ⬜️ ⭐️ ⬜️<br>
+                ⭐️ ⬜️ ⬜️ ⬜️ ⬜️
+            </div>
+            <button class="btn" onclick="getMinesSignal()">Signal Olish</button>
+        </div>
+
+        <!-- Promokodlar bo'limi -->
+        <div class="card section" id="secPromo">
+            <h3>🎁 Rasmiy Promokodlar</h3>
+            <div class="promo-box">DARKWOLF76</div>
+            <div class="promo-box blue">BE127</div>
+            <div class="hint">Linebet'da ro'yxatdan o'tishda ushbu promokodlardan foydalaning va yuqori bonuslarga ega bo'ling.</div>
+        </div>
+
+        <!-- Linebet ID bo'limi -->
+        <div class="card section" id="secId">
+            <h3>🆔 Linebet ID Kiritish</h3>
+            <input type="text" id="linebetId" placeholder="ID raqamingizni kiriting...">
+            <button class="btn" onclick="saveId()">Saqlash</button>
+        </div>
     </div>
 
     <script>
         let tg = window.Telegram.WebApp;
         tg.expand();
+
+        function switchGame(game) {
+            // Hamma menyu tugmalari va bo'limlarni o'chirish
+            document.querySelectorAll('.menu-btn').forEach(b => b.classList.remove('active'));
+            document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+
+            // Tanlanganni yoqish
+            if(game === 'apple') {
+                document.getElementById('btnApple').classList.add('active');
+                document.getElementById('secApple').classList.add('active');
+            } else if(game === 'mines') {
+                document.getElementById('btnMines').classList.add('active');
+                document.getElementById('secMines').classList.add('active');
+            } else if(game === 'promo') {
+                document.getElementById('btnPromo').classList.add('active');
+                document.getElementById('secPromo').classList.add('active');
+            } else if(game === 'id') {
+                document.getElementById('btnId').classList.add('active');
+                document.getElementById('secId').classList.add('active');
+            }
+        }
 
         function saveId() {
             let id = document.getElementById('linebetId').value;
@@ -77,9 +137,4 @@
                 "⭐️ ⬜️ ⬜️ ⬜️ ⬜️<br>⬜️ ⬜️ ⭐️ ⬜️ ⬜️<br>⬜️ ⬜️ ⬜️ ⬜️ ⭐️",
                 "⬜️ ⬜️ ⭐️ ⬜️ ⬜️<br>⭐️ ⬜️ ⬜️ ⬜️ ⬜️<br>⬜️ ⬜️ ⬜️ ⭐️ ⬜️"
             ];
-            let randBoard = boards[Math.floor(Math.random() * boards.length)];
-            document.getElementById('minesSignal').innerHTML = randBoard;
-        }
-    </script>
-</body>
-</html>
+            let randBoard = boards[Math.floor(Math.random() * boards.length
