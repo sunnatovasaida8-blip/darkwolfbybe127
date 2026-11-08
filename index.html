@@ -12,8 +12,11 @@
         /* Top Navigation Bar */
         .top-bar { width: 100%; max-width: 420px; display: flex; justify-content: space-between; align-items: center; padding: 8px 4px; margin-bottom: 15px; }
         .icon-btn { width: 42px; height: 42px; background: #0b62f6; border-radius: 50%; display: flex; justify-content: center; align-items: center; cursor: pointer; box-shadow: 0 0 12px rgba(11, 98, 246, 0.4); border: none; color: #fff; font-size: 20px; }
-        .status-badge { background: #b91c1c; color: #fff; font-size: 10px; font-weight: 700; padding: 6px 14px; border-radius: 20px; text-transform: uppercase; border: 1px solid #ef4444; letter-spacing: 0.5px; }
-        .status-badge.online { background: #15803d; border-color: #22c55e; }
+        
+        /* Status Badge - Default Online or Offline */
+        .status-badge { background: #15803d; color: #fff; font-size: 11px; font-weight: 800; padding: 6px 16px; border-radius: 20px; text-transform: uppercase; border: 1px solid #22c55e; letter-spacing: 1px; box-shadow: 0 0 10px rgba(34, 197, 94, 0.4); }
+        .status-badge.offline { background: #b91c1c; border-color: #ef4444; box-shadow: 0 0 10px rgba(239, 68, 68, 0.4); }
+
         .lang-badge { background: #111827; border: 1px solid #1f2937; padding: 6px 12px; border-radius: 20px; font-size: 12px; display: flex; align-items: center; gap: 5px; }
 
         /* Main Container Card */
@@ -74,7 +77,7 @@
     <!-- Top Navigation -->
     <div class="top-bar">
         <button class="icon-btn" onclick="openModal('idModal')">⚙️</button>
-        <div class="status-badge" id="statusBadge">Offline</div>
+        <div class="status-badge" id="statusBadge">ONLINE</div>
         <div class="lang-badge">🌐 <span>UZ</span></div>
         <button class="icon-btn" onclick="window.open('https://t.me/MUZZCOLD', '_blank')">✈️</button>
     </div>
@@ -282,7 +285,7 @@
                 closeModal('idModal');
                 let badge = document.getElementById('statusBadge');
                 badge.innerText = "ONLINE";
-                badge.classList.add('online');
+                badge.classList.remove('offline');
             } else {
                 alert('Iltimos ID kiriting!');
             }
