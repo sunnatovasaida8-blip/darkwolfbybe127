@@ -36,7 +36,7 @@
         .online-status { background: #052e16; border: 1px solid #15803d; padding: 6px 12px; border-radius: 14px; display: flex; align-items: center; gap: 8px; font-size: 11px; color: #4ade80; flex-grow: 1; justify-content: center; }
         .green-dot { width: 8px; height: 8px; background: #22c55e; border-radius: 50%; box-shadow: 0 0 8px #22c55e; }
 
-        /* Common UI Screens (Apple, Thimbles, etc.) */
+        /* Common UI Screens */
         .screen { display: none; flex-direction: column; align-items: center; width: 100%; }
         .screen.active { display: flex; }
         .screen-top { width: 100%; display: flex; justify-content: space-between; margin-bottom: 20px; }
@@ -73,7 +73,7 @@
     <!-- Top Navigation -->
     <div class="top-bar">
         <button class="icon-btn" onclick="openModal('idModal')">⚙️</button>
-        <div class="status-badge">Offline</div>
+        <div class="status-badge" id="statusBadge">Offline</div>
         <div class="lang-badge">🌐 <span>UZ</span></div>
         <button class="icon-btn" onclick="window.open('https://t.me/MUZZCOLD', '_blank')">✈️</button>
     </div>
@@ -231,7 +231,7 @@
             <div style="font-size: 40px; margin-bottom: 10px;">📨</div>
             <div class="modal-title">Yangiliklar</div>
             <div class="modal-text" style="text-align: center;">
-                DARKWOLF76 ishlayshi uchun Linebet hisobingizda 60000 so'mdan kam bo'lmasin!
+                DARKWOLF76 ishlashi uchun Linebet hisobingizda 60000 so'mdan kam bo'lmasin!
                 <br><br>
                 <small style="color: #64748b;">13/09/2026, 13:53:11</small>
             </div>
@@ -280,6 +280,11 @@
             if(id) {
                 alert('Linebet ID muvaffaqiyatli saqlandi: ' + id);
                 closeModal('idModal');
+                // ID kiritilgach Offline ni Online ga o'tkazish
+                let badge = document.getElementById('statusBadge');
+                badge.innerText = "Online";
+                badge.style.background = "#15803d";
+                badge.style.borderColor = "#22c55e";
             } else {
                 alert('Iltimos ID kiriting!');
             }
